@@ -6,20 +6,28 @@ import Nav from './component/Nav'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Details from './pages/wine-detail'
+import Hooks from './pages/hooks'
+import DataProvider from './context/DataContext'
+import ThemeProvider from './context/ThemeContext'
 
 function App() {
 
   return (
     <>
-    <BrowserRouter>
-    <Nav />
-    <ToastContainer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/details/:id" element={<Details />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <DataProvider>
+          <ThemeProvider>
+            <Nav />
+            <ToastContainer />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/details/:id" element={<Details />} />
+              <Route path="/hooks" element={<Hooks />} />
+            </Routes>
+          </ThemeProvider>
+        </DataProvider>
+      </BrowserRouter>
     </>
   )
 }
