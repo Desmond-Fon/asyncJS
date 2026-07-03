@@ -34,6 +34,8 @@ function Home() {
         setCompleteWines(wines)
     },[wines])
 
+    // localStorage.setItem('countryDetail', JSON.stringify(value))
+
 
     return (
         <main className="w-[80%] mx-auto py-20">
@@ -46,7 +48,7 @@ function Home() {
 
             <div>
                 <h2 className="text-2xl font-bold">Red Wines</h2>
-                {completeWines && completeWines.length > 0 && <div className="grid grid-cols-3 gap-4">
+                {completeWines && completeWines.length > 0 && <div className="grid lg:grid-cols-3 gap-4">
                     {completeWines.slice(0, 20).map((wine) => {
                         return (
                             <Card key={wine.id} wine={wine} />
@@ -56,7 +58,7 @@ function Home() {
             </div>
             <div className="mt-20">
                 <h2 className="text-2xl font-bold">White Wines</h2>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-4">
                     {whites.slice(0, 20).map((wine) => {
                         return (
                             <Link to={`/details/${wine.id}?wineCategory=whites`} key={wine.id} className="flex flex-col items-center justify-center shadow-2xl rounded-xl p-4 hover:scale-105 transition-all duration-300 text-center">
