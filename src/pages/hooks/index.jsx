@@ -47,7 +47,7 @@ function Hooks() {
     }, [count]);
 
     return (
-        <div className="relative w-[80vw] mx-auto">
+        <div className="relative w-full mx-auto">
             <h1>{doubled}</h1>
             <button onClick={() => setCount(count + 1)} className="bg-[#FFFFFF26]">
                 Increase

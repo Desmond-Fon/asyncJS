@@ -9,24 +9,44 @@ import Details from './pages/wine-detail'
 import Hooks from './pages/hooks'
 import DataProvider from './context/DataContext'
 import ThemeProvider from './context/ThemeContext'
+import { AuthProvider } from './context/AuthContext'
+import Login from './pages/login'
+import ProtectedRoutes from './component/ProtectedRoute'
+import ProductLayout from './component/ProductLayout'
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
-        <DataProvider>
-          <ThemeProvider>
-            <Nav />
-            <ToastContainer />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/product" element={<Product />} />
-              <Route path="/details/:id" element={<Details />} />
-              <Route path="/hooks" element={<Hooks />} />
-            </Routes>
-          </ThemeProvider>
-        </DataProvider>
+        <AuthProvider>
+          <DataProvider>
+            <ThemeProvider>
+              <Nav />
+              <ToastContainer />
+              <Routes>
+                <Route path="/" element={<Home />} />
+
+
+                <Route path="/product" element={<ProductLayout />}>
+
+                  <Route index element={<Product />} />
+                  <Route path="hooks" element={<Hooks />} />
+                  <Route path="login" element={<Login />} />
+                </Route>
+
+
+
+                <Route path="/product" element={<ProtectedRoutes><Product /></ProtectedRoutes>} />
+
+
+                <Route path="/details/:id" element={<Details />} />
+                <Route path="/hooks" element={<Hooks />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </ThemeProvider>
+          </DataProvider>
+        </AuthProvider>
       </BrowserRouter>
     </>
   )
