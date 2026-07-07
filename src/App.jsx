@@ -13,6 +13,7 @@ import { AuthProvider } from './context/AuthContext'
 import Login from './pages/login'
 import ProtectedRoutes from './component/ProtectedRoute'
 import ProductLayout from './component/ProductLayout'
+import Forms from './pages/forms'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
               <ToastContainer />
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path='/forms' element={<Forms />} />
 
 
                 <Route path="/product" element={<ProductLayout />}>

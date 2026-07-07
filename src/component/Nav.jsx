@@ -25,7 +25,7 @@ function Nav() {
       <Link className='hidden md:block' to="/">Home</Link>
       {user && <Link className='hidden md:block' to="/product">Product</Link>}
       <Link className='hidden md:block' to="/hooks">Hooks</Link>
-
+      <Link className='hidden md:block' to="/forms">Forms</Link>
       <button onClick={toggleTheme}>{theme} Mode</button>
       {user ? <button onClick={logout}>Logout</button> : <button onClick={() => navigate("/login")}>Login</button>}
 
@@ -36,6 +36,7 @@ function Nav() {
         <Link onClick={toggleMenu} to="/">Home</Link>
         {user && <Link onClick={toggleMenu} to="/product">Product</Link>}
         <Link onClick={toggleMenu} to="/hooks">Hooks</Link>
+        <Link onClick={toggleMenu} to="/forms">Forms</Link>
         {user ? <button onClick={logout}>Logout</button> : <button onClick={() => navigate("/login")}>Login</button>}
       </div>}
     </div>
