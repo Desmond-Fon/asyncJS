@@ -2,9 +2,11 @@ import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import Card from "../../component/Card"
 import { DataContext } from "../../context/DataContext"
+import { AuthContext } from "../../context/AuthContext"
 
 function Product() {
   const { wines, whites, loading } = useContext(DataContext)
+  const {user, setUser} = useContext(AuthContext)
 
   const [completeWines, setCompleteWines] = useState([])
 
@@ -19,6 +21,23 @@ function Product() {
       setCompleteWines(wines)
     }
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (!user && !token) {
+      navigate("/login")
+    }
+    const fetchUser = async () => {
+      const response = await axios.get('https://dummyjson.com/auth/me', {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      if (response.status === 200) {
+        setUser(response.data)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     setCompleteWines(wines)
@@ -40,6 +59,8 @@ function Product() {
   return (
     <main className="w-[80%] mx-auto py-20">
       {loading && <div className="flex justify-center items-center h-screen"><svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"><path fill="none" stroke="#FF156D" stroke-width="15" stroke-linecap="round" stroke-dasharray="300 385" stroke-dashoffset="0" d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"><animate attributeName="stroke-dashoffset" calcMode="spline" dur="2" values="685;-685" keySplines="0 0 1 1" repeatCount="indefinite"></animate></path></svg></div>}
+
+      {user && <h1>Welcome {user.username}</h1>}
 
       <form onSubmit={handleSearch} className="flex gap-2 justify-center items-center mb-10">
         <input type="search" name="" id="" value={search} onChange={(e) => setSearch(e.target.value)} className="input-field" />

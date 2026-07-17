@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 function Nav() {
   const navigate = useNavigate()
   const { user, handleLogout } = useContext(AuthContext)
+  const [count, setCount] = useState(0)
+  
   const { theme, toggleTheme } = useContext(ThemeContext)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -19,6 +21,9 @@ function Nav() {
     handleLogout()
     navigate("/login")
   }
+
+  let age = 25;
+
   return (
     <div className='flex justify-between items-center p-4 bg-gray-200 dark:bg-gray-800 text-black dark:text-white relative'>
       <img src={logo} alt="logo" className='w-10 h-10' />

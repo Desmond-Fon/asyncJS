@@ -1,11 +1,13 @@
 import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 export const AuthContext = createContext()
 
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const user = localStorage.getItem("user")
@@ -43,14 +45,17 @@ export const AuthProvider = ({ children }) => {
 
     const handleLogin = async (user) => {
         try {
-            const response = await axios.post("https://api.example.com/login", { body: user }, {
+            const response = await axios.post("https://dummyjson.com/auth/login", user, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             }
             )
+            console.log(response.status)
             if (response.status === 200) {
-                localStorage.setItem("token", response.data.token)
+                setUser(response.data)
+                navigate('/product')
+                localStorage.setItem("token", response.data.accessToken)
                 toast.success("Login successful")
             }
         } catch (error) {
@@ -66,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
+        <AuthContext.Provider value={{ user, setUser, handleLogin, handleLogout }}>
             {children}
         </AuthContext.Provider>
     )
